@@ -1,0 +1,6 @@
+requests
+pycryptodome
+colorama
+psutil
+protobuf
+python-telegram-bot
