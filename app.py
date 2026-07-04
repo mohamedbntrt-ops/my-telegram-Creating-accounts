@@ -2796,6 +2796,24 @@ def run_telegram_bot():
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, message_handler))
     print("🤖 Bot is running...")
     app.run_polling()
+    if __name__ == "__main__":
+    import sys
+    
+    # تشغيل Flask في خيط جانبي
+    flask_thread = threading.Thread(target=run_flask, daemon=True)
+    flask_thread.start()
+    
+    if len(sys.argv) > 1 and sys.argv[1] == "bot":
+        run_telegram_bot()
+    else:
+        try:
+            main_menu()
+        except KeyboardInterrupt:
+            safe_exit()
+        except Exception as e:
+            print_error(f"Error: {e}")
+            time.sleep(2)
+            os.execv(sys.executable, [sys.executable] + sys.argv)
 if __name__ == "__main__":
     import sys
     if len(sys.argv) > 1 and sys.argv[1] == "bot":
