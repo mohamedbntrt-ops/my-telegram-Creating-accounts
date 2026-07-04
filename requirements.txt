@@ -4,3 +4,4 @@ colorama
 psutil
 protobuf
 python-telegram-bot
+flask
