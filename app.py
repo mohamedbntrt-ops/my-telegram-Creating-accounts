@@ -2789,15 +2789,19 @@ def run_telegram_bot():
     if not TELEGRAM_AVAILABLE:
         print("❌ python-telegram-bot not installed. Run: pip install python-telegram-bot")
         return
+    
     app = ApplicationBuilder().token(BOT_TOKEN).build()
     app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("help", help_command))  # ✅ تمت إضافة أمر المساعدة
+    app.add_handler(CommandHandler("help", help_command))
     app.add_handler(CallbackQueryHandler(button_handler))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, message_handler))
+    
     print("🤖 Bot is running...")
     app.run_polling()
-    if __name__ == "__main__":
+
+if __name__ == "__main__":
     import sys
+    run_telegram_bot()
     
     # تشغيل Flask في خيط جانبي
     flask_thread = threading.Thread(target=run_flask, daemon=True)
